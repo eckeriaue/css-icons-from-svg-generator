@@ -1,0 +1,10 @@
+{
+  "name": "css-icons-from-svg-generator",
+  "version": "1.0.0",
+  "description": "generate icon asset from svg files",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC"
+}
