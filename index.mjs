@@ -2,8 +2,13 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { argv } from "node:process";
 
-const BASE_DIR = resolve("./scripts/icons");
-const ASSETS_DIR = join(BASE_DIR, "assets");
+
+const assetsDir = resolve(
+  argv
+    .find((arg) => arg.startsWith("--assets="))
+    .split("=")
+    .at(1),
+);
 
 const pathSpawnCss = resolve(
   argv
@@ -39,7 +44,7 @@ function encodeSvg(rawSvg) {
   return uri;
 }
 
-const fileNames = await readdir(ASSETS_DIR);
+const fileNames = await readdir(assetsDir);
 
 let cssContent = `
 [class^="icon-"], [class*=" icon-"] {
@@ -58,7 +63,7 @@ let cssContent = `
 }\n\n`;
 
 for (const fileName of fileNames) {
-  const iconContent = encodeSvg(await readFile(join(ASSETS_DIR, fileName), "utf-8"));
+  const iconContent = encodeSvg(await readFile(join(assetsDir, fileName), "utf-8"));
   cssContent += `.icon-${fileName.replace(".svg", "")} { mask-image: ${iconContent}; } `;
 }
 writeFile(pathSpawnCss, cssContent);

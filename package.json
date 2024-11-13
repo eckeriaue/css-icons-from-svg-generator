@@ -4,6 +4,7 @@
   "description": "generate icon asset from svg files",
   "main": "index.js",
   "scripts": {
+    "generate": "node scripts/icons/generateIconAssets.mjs"
   },
   "author": "",
   "license": "ISC"
